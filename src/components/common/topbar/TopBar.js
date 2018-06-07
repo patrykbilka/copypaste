@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -6,7 +7,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-// import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const styles = {
   root: {
@@ -21,27 +22,29 @@ const styles = {
   },
 };
 
-function ButtonAppBar(props) {
+function ApplicationBar(props) {
   const { classes } = props;
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
           <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-            {/* <MenuIcon /> */}
+            <MenuIcon />
           </IconButton>
           <Typography variant="title" color="inherit" className={classes.flex}>
-            Title
+            Copy & paste
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button color="inherit" component={Link} to="/register">
+            Register
+          </Button>
         </Toolbar>
       </AppBar>
     </div>
   );
 }
 
-ButtonAppBar.propTypes = {
+ApplicationBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ButtonAppBar);
+export default withStyles(styles)(ApplicationBar);

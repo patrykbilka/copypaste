@@ -6,18 +6,30 @@ import {
   Switch
 } from 'react-router-dom';
 
-import TopBar from './common/TopBar';
+import Grid from '@material-ui/core/Grid';
+import css from './app.css'
+import TopBar from './common/topbar/TopBar';
+import Container from './common/container/Container';
+import Register from './views/register/Register';
 
 const AppWrapper = styled.div`
   font-family: Roboto;
+  margin: 0;
 `;
 
 function App() {
   return (
     <AppWrapper>
-      <TopBar />
-        {/* <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} /> */}
+      <Router>
+        <div>
+          <TopBar />
+          <Container container spacing={24}>
+            <Switch>
+              <Route path="/register" component={Register} />
+            </Switch>
+          </Container>
+        </div>
+      </Router>
     </AppWrapper>
   )
 };
