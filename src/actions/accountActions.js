@@ -1,15 +1,10 @@
 import axios from 'axios';
 import * as types from './actionTypes';
+import { showLoading, hideLoading } from './loadingActions';
 import API_URL from '../env';
 const queryString = require('query-string');
 
-axios.defaults.headers.common['Content-Type'] = 'application/x-www-form-urlencoded';
-
-const headers = {
-  'Content-Type' : 'application/x-www-form.urlencoded'
-}
-
-function setAccountErrors(data) {
+export function setAccountErrors(data) {
   return {
     type: types.AUTH_ERROR,
     payload: data
@@ -34,6 +29,7 @@ export function registerAction(params) {
   }
 
   return dispatch => {
+    dispatch(showLoading());
     return axios(requestParams).then((response) => {
       const { access_token, expires_in, refresh_token, token_type } = response.data;
 
@@ -42,28 +38,31 @@ export function registerAction(params) {
       localStorage.setItem('expires_in', expires_in);
       localStorage.setItem('refresh_token', refresh_token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      dispatch(hideLoading());
     }, (error) => {
       const status = error.response.status;
       if (status === 422) {
         dispatch(setAccountErrors(error.response.data.errors));
       }
 
+      dispatch(hideLoading());
       return Promise.reject(error.response.status);
     });
   }
 };
 
 export function loginAction(params) {
-  const url = `${API_URL}login`;
-  
-  const requestParams = {
-    url,
-    method: 'post',
-    headers: { 'Content-Type':'application/x-www-form-urlencoded', 'Accept' : 'application/json' },
-    data: queryString.stringify(params),
-  }
-
   return dispatch => {
+    dispatch(showLoading());
+    const url = `${API_URL}login`;
+  
+    const requestParams = {
+      url,
+      method: 'post',
+      headers: { 'Content-Type':'application/x-www-form-urlencoded', 'Accept' : 'application/json' },
+      data: queryString.stringify(params),
+    }
+
     return axios(requestParams).then((response) => {
       const { access_token, expires_in, refresh_token, token_type } = response.data;
 
@@ -72,6 +71,7 @@ export function loginAction(params) {
       localStorage.setItem('expires_in', expires_in);
       localStorage.setItem('refresh_token', refresh_token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+      dispatch(hideLoading());
     }, (error) => {
       const status = error.response.status;
       if (status === 422) {
@@ -82,6 +82,7 @@ export function loginAction(params) {
         console.log(error.response)
         dispatch(setAccountErrors({ message: error.response.data.message }))
       }
+      dispatch(hideLoading());
       return Promise.reject(error.response.status);
     });
   }

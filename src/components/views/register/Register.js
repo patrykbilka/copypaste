@@ -54,6 +54,12 @@ class Register extends React.Component {
     });
   };
 
+  handlePasswordChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  };
+
   handleSubmitButtonClick = () => {
     this.register();
   };
@@ -94,7 +100,7 @@ class Register extends React.Component {
             id="password"
             label="Hasło"
             value={this.state.password}
-            onChange={this.handleInputChange}
+            onChange={this.handlePasswordChange}
             type="password"
           />
         </InputWrapper>
@@ -104,7 +110,7 @@ class Register extends React.Component {
             id="passwordConfirmation"
             label="Powtórz hasło"
             value={this.state.passwordConfirmation}
-            onChange={this.handleInputChange}
+            onChange={this.handlePasswordChange}
             type="password"
           />
           { authErrors.password && <InputError>{authErrors.password}</InputError> }

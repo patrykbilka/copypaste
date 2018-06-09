@@ -36,7 +36,7 @@ function ApplicationBar(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="title" color="inherit" className={classes.flex}>
-            Copy & paste
+            { props.loading.isLoading && 'Loading...'}
           </Typography>
           { props.account.isAuth ?              
             <Button color="inherit" onClick={props.logoutAction}>
@@ -62,8 +62,8 @@ ApplicationBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapStateToProps({ account }) {
-  return { account };
+function mapStateToProps({ account, loading }) {
+  return { account, loading };
 }
 
 function mapDispatchToProps(dispatch) {

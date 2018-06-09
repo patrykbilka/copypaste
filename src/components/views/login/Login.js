@@ -49,6 +49,12 @@ class Login extends React.Component {
     });
   };
 
+  handlePasswordChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value
+    });
+  };
+
   handleSubmitButtonClick = () => {
     this.login();
   };
@@ -75,7 +81,7 @@ class Login extends React.Component {
             id="password"
             label="Hasło"
             value={this.state.password}
-            onChange={this.handleInputChange}
+            onChange={this.handlePasswordChange}
             type="password"
           />
           { authErrors.password && <InputError>{authErrors.password}</InputError> }
