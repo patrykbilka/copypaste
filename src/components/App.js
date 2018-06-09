@@ -11,6 +11,8 @@ import css from './app.css'
 import TopBar from './common/topbar/TopBar';
 import Container from './common/container/Container';
 import Register from './views/register/Register';
+import Login from './views/login/Login';
+import Storage from './views/account/storage/Storage';
 
 const AppWrapper = styled.div`
   font-family: Roboto;
@@ -26,6 +28,8 @@ function App() {
           <Container container spacing={24}>
             <Switch>
               <Route path="/register" component={Register} />
+              <Route path="/login" component={Login} />
+              <Route path="/storage" component={Storage} />
             </Switch>
           </Container>
         </div>

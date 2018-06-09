@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 201px;
-  margin: 0.25rem auto;
+  margin: 0.825rem auto;
   text-align: right;
   > div {
     width: 100%;

@@ -8,19 +8,16 @@ import SubmitButton from '../../common/buttons/SubmitButton';
 import InputWrapper from '../../common/form/InputWrapper';
 import Checkbox from '../../common/checkoboxes/Checkbox';
 import InputError from '../../common/form/InputError';
-import { registerAction } from '../../../actions/accountActions';
+import { loginAction } from '../../../actions/accountActions';
 import { checkForInputError } from '../../../utils/commonUtils';
 
-class Register extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: '',
       password: '',
-      passwordConfirmation: '',
       email: '',
-      regulationsAccepted: false
     }
   }
 
@@ -30,20 +27,18 @@ class Register extends React.Component {
     }
   }
 
-  register() {
+  login() {
     const requestParams = {
-      name: this.state.name,
-      password: this.state.password,
       email: this.state.email,
-      regulations: this.state.regulationsAccepted,
-      password_confirmation: this.state.passwordConfirmation
+      password: this.state.password,
     };
     
-    this.props.registerAction(requestParams).then(
+    this.props.loginAction(requestParams).then(
       () => {
         this.props.history.push('/storage');
       },
       () => {
+
       }
     );
   }
@@ -55,29 +50,15 @@ class Register extends React.Component {
   };
 
   handleSubmitButtonClick = () => {
-    this.register();
-  };
-
-  handleCheck = () => {
-    this.setState(prevState => ({
-      regulationsAccepted: !prevState.regulationsAccepted
-    }));
+    this.login();
   };
 
   render() {
     const { authErrors } = this.props.errors;
     return (
       <form noValidate autoComplete="off">
-        <InputWrapper>
-          <TextField
-            error={checkForInputError(authErrors.name)}
-            id="name"
-            label="Nazwa"
-            value={this.state.name}
-            onChange={this.handleInputChange}
-          />
-          { authErrors.name && <InputError>{authErrors.name}</InputError> }
-        </InputWrapper>
+
+        { authErrors.message && <InputError>{authErrors.message}</InputError> }
         <InputWrapper>
           <TextField
             error={checkForInputError(authErrors.email)}
@@ -97,31 +78,11 @@ class Register extends React.Component {
             onChange={this.handleInputChange}
             type="password"
           />
-        </InputWrapper>
-        <InputWrapper>
-          <TextField
-            error={checkForInputError(authErrors.password)}
-            id="passwordConfirmation"
-            label="Powtórz hasło"
-            value={this.state.passwordConfirmation}
-            onChange={this.handleInputChange}
-            type="password"
-          />
           { authErrors.password && <InputError>{authErrors.password}</InputError> }
         </InputWrapper>
         <InputWrapper>
-          <FormControlLabel
-            control={<Checkbox
-              checked={this.state.regulationsAccepted}
-              onChange={this.handleCheck}
-            />}
-            label="Accept regulations."
-          />
-          { authErrors.password && <InputError>{authErrors.regulations}</InputError> }
-        </InputWrapper>
-        <InputWrapper>
           <SubmitButton onClick={this.handleSubmitButtonClick}>
-            Register
+            Login
           </SubmitButton>
         </InputWrapper>
       </form>
@@ -135,9 +96,9 @@ function mapStateToProps({ account, errors }) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    registerAction
+    loginAction
   }, dispatch);
 }
 
-Register = connect(mapStateToProps, mapDispatchToProps)(Register);
-export default withRouter(Register);
+Login = connect(mapStateToProps, mapDispatchToProps)(Login);
+export default withRouter(Login);

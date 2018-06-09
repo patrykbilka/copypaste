@@ -10,7 +10,8 @@ const configureStore = composeEnhancers(applyMiddleware(...middleware))(createSt
 
 const config = {
   key: 'root',
-  storage
+  storage,
+  whitelist: ['account']
 };
 
 const combinedReducer = persistReducer(config, reducer);
