@@ -5,6 +5,13 @@ import API_URL from '../env';
 
 const queryString = require('query-string');
 
+export function setItems(data) {
+  return {
+    type: types.SET_ITEMS,
+    payload: data
+  }
+}
+
 export function createItem(params) {
   return dispatch => {
     dispatch(showLoading());
@@ -35,8 +42,12 @@ export function getItems(params) {
       headers: { 'Content-Type':'application/x-www-form-urlencoded', 'Accept' : 'application/json', 'Authorization':authStr},
     }
     return axios(requestParams).then(
-      (response) => {
-        console.log(response)
+      (res) => {
+        dispatch(setItems(res));
+        dispatch(hideLoading());
+      },
+      (err) => {
+        dispatch(hideLoading());
       }
     )
   }

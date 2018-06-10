@@ -63,8 +63,9 @@ class Login extends React.Component {
     const { authErrors } = this.props.errors;
     return (
       <form noValidate autoComplete="off">
-
-        { authErrors.message && <InputError>{authErrors.message}</InputError> }
+        <InputWrapper>
+          { authErrors.message && <InputError>{authErrors.message}</InputError> }
+        </InputWrapper>
         <InputWrapper>
           <TextField
             error={checkForInputError(authErrors.email)}
