@@ -3,20 +3,18 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 
 const Wrapper = styled.div`
-  margin: 0.25rem auto;
-  & > button {
-    width: 100%;
-    background-color: #f50057;
-    color: #FFF;
-  },
-  & > button:hover {
-    width: 100%;
+  margin: 4.25rem auto;
+  text-align: center;
+  & > a {
     background-color: #f50057;
     color: #FFF;
   }
+  & > a:hover {
+    background-color: #f50057;
+  }
 `;
 
-function SubmitButton(props) {
+function PageButton(props) {
   return (
     <Wrapper>
       <Button variant="raised" {...props}>
@@ -26,4 +24,4 @@ function SubmitButton(props) {
   );
 }
 
-export default SubmitButton;
+export default PageButton;

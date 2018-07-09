@@ -16,13 +16,14 @@ const Wrapper = styled.div`
   > div {
     width: auto !important;
   }
-  @media (min-width: 767px) {
+  @media (min-width: 992px) {
     display: none;
   }
 `
 const styles = {
   root: {
     width: 500,
+    color: '#f50057'
   },
 };
 
@@ -47,9 +48,31 @@ class SimpleBottomNavigation extends React.Component {
           showLabels
           className={classes.root}
         >
-          <BottomNavigationAction component={Link} to="/storage" label="Linki" icon={<RestoreIcon />} />
-          <BottomNavigationAction component={Link} to="/storage/new"label="Dodaj" icon={<FavoriteIcon />} />
-          <BottomNavigationAction label="Konto" icon={<LocationOnIcon />} />
+          <BottomNavigationAction
+            component={Link}
+            to="/storage"
+            label="Linki"
+            style={{
+              color: value === 0 && '#f50057'
+            }}
+            icon={<RestoreIcon />}
+          />
+          <BottomNavigationAction
+            component={Link}
+            to="/storage/new"
+            label="Dodaj"
+            style={{
+              color: value === 1 && '#f50057'
+            }}
+            icon={<FavoriteIcon />}
+          />
+          <BottomNavigationAction
+            label="Konto"
+            style={{
+              color: value === 2 && '#f50057'
+            }}
+            icon={<LocationOnIcon />}
+          />
         </BottomNavigation>
       </Wrapper>
     );

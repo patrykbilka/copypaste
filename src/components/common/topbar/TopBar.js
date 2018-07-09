@@ -12,21 +12,51 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import styled from 'styled-components';
 
 import { logoutAction } from '../../../actions/accountActions';
 
-const styles = {
+const TopText = styled.span`
+  @media screen and (max-width: 500px) {
+    display: none;
+  }
+`
+
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
   flex: {
-    flex: 1,
+    flex: 2,
+    fontSize: '1rem'
+  },
+  icon: {
+    margin: theme.spacing.unit * 2,
+    color: '#FFF'
+  },
+  progress: {
+    color: '#FFF',
+    margin: '0 1rem'
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
+    color: '#FFF'
   },
-};
+  menuIcon: {
+    color: '#FFF'
+  }
+});
+
+function HomeIcon(props) {
+  return (
+    <SvgIcon {...props}>
+      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+  );
+}
 
 class ApplicationBar extends React.Component {
   constructor(props) {
@@ -48,39 +78,52 @@ class ApplicationBar extends React.Component {
     const { anchorEl } = this.state;
 
     const authRoutes = [
-      <MenuItem component={NavLink} to="/storage" onClick={this.handleClose}>Linki</MenuItem>,
-      <MenuItem component={NavLink} to="/storage/new" onClick={this.handleClose}>Dodaj</MenuItem>,
-      <MenuItem component={NavLink} to="/storage/new" onClick={this.handleClose}>Wyloguj</MenuItem>,
+      <MenuItem key='storage' component={NavLink} to="/storage" onClick={this.handleClose}>Linki</MenuItem>,
+      <MenuItem key='new'  component={NavLink} to="/storage/new" onClick={this.handleClose}>Dodaj</MenuItem>,
+      <MenuItem key='account' component={NavLink} to="/storage/new" onClick={this.handleClose}>Wyloguj</MenuItem>,
     ];
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="static" style={{ backgroundColor: '#006064'}} >
           <Toolbar>
-            <IconButton 
-              onClick={this.handleClick}
+            <IconButton
+              component={NavLink}
+              to="/"
               className={classes.menuButton}
-              color="inherit"
               aria-label="Menu"
             >
-              <MenuIcon />
+              <HomeIcon 
+              className={classes.menuIcon} />
             </IconButton>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleClose}
-            >
-              { authRoutes }
-            </Menu>
-            { this.props.loading.isLoading && 'Loading...'}
+              { this.props.loading.isLoading &&
+                <CircularProgress size={30}  className={classes.progress} />
+              }
             <Typography variant="title" color="inherit" className={classes.flex}>
-              Your storage
+              
+              <TopText>Copy & paste</TopText>
             </Typography>
-            { this.props.account.isAuth ?              
-              <Button color="inherit" onClick={this.props.logoutAction}>
-                Logout
-              </Button> :
+            { this.props.account.isAuth ?      
+              <div>
+                <Button color="inherit" onClick={this.props.logoutAction}>
+                  Logout
+                </Button>
+                <IconButton
+                  onClick={this.handleClick}
+                  className={classes.menuButton}
+                  aria-label="Menu"
+                >
+                  <MenuIcon />
+                </IconButton>  
+                <Menu
+                  id="simple-menu"
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={this.handleClose}
+                >
+                  { authRoutes }
+                </Menu>
+              </div> :
               <div>
                 <Button color="inherit" component={Link} to="/login">
                   Login
@@ -90,7 +133,6 @@ class ApplicationBar extends React.Component {
                 </Button>
               </div>  
             }
-
           </Toolbar>
         </AppBar>
       </div>

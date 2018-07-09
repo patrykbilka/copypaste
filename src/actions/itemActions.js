@@ -25,7 +25,10 @@ export function createItem(params) {
     }
     return axios(requestParams).then(
       (response) => {
-        console.log(response)
+        dispatch(hideLoading());
+      },
+      (err) => {
+        dispatch(hideLoading());
       }
     )
   }

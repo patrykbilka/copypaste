@@ -8,6 +8,7 @@ import SubmitButton from '../../common/buttons/SubmitButton';
 import InputWrapper from '../../common/form/InputWrapper';
 import Checkbox from '../../common/checkoboxes/Checkbox';
 import InputError from '../../common/form/InputError';
+import PageHeader from '../../common/pageheader/PageHeader';
 import { registerAction } from '../../../actions/accountActions';
 import { checkForInputError } from '../../../utils/commonUtils';
 
@@ -74,6 +75,7 @@ class Register extends React.Component {
     const { authErrors } = this.props.errors;
     return (
       <form noValidate autoComplete="off">
+        <PageHeader>Rejestracja</PageHeader>
         <InputWrapper>
           <TextField
             error={checkForInputError(authErrors.name)}
@@ -127,7 +129,7 @@ class Register extends React.Component {
         </InputWrapper>
         <InputWrapper>
           <SubmitButton onClick={this.handleSubmitButtonClick}>
-            Register
+            Zarejestruj
           </SubmitButton>
         </InputWrapper>
       </form>

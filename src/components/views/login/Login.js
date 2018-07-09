@@ -8,6 +8,7 @@ import SubmitButton from '../../common/buttons/SubmitButton';
 import InputWrapper from '../../common/form/InputWrapper';
 import Checkbox from '../../common/checkoboxes/Checkbox';
 import InputError from '../../common/form/InputError';
+import PageHeader from '../../common/pageheader/PageHeader';
 import { loginAction } from '../../../actions/accountActions';
 import { checkForInputError } from '../../../utils/commonUtils';
 
@@ -63,6 +64,7 @@ class Login extends React.Component {
     const { authErrors } = this.props.errors;
     return (
       <form noValidate autoComplete="off">
+        <PageHeader>Logowanie</PageHeader>
         <InputWrapper>
           { authErrors.message && <InputError>{authErrors.message}</InputError> }
         </InputWrapper>
@@ -89,7 +91,7 @@ class Login extends React.Component {
         </InputWrapper>
         <InputWrapper>
           <SubmitButton onClick={this.handleSubmitButtonClick}>
-            Login
+            Zaloguj
           </SubmitButton>
         </InputWrapper>
       </form>

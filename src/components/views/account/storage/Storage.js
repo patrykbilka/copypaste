@@ -35,6 +35,7 @@ class Storage extends React.Component {
     const elements = Object.values(items).map(item => {
       return (
         <Item
+          style={{ backgroundColor: '#f50057' }}
           key={item.id}
           message={item.content}
         />
